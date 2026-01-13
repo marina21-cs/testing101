@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="none">
+        
+        <item
+            android:id="@+id/nav_new_file"
+            android:title="New File"
+            android:icon="@drawable/ic_file_text" />
+
+        <item
+            android:id="@+id/nav_new_folder"
+            android:title="New Folder"
+            android:icon="@drawable/ic_folder" />
+
+        <item
+            android:id="@+id/nav_open_file"
+            android:title="Open File"
+            android:icon="@drawable/ic_folder_open" />
+
+        <item
+            android:id="@+id/nav_open_folder"
+            android:title="Open Folder"
+            android:icon="@drawable/ic_folder" />
+
+    </group>
+
+    <group android:id="@+id/group_save">
+
+        <item
+            android:id="@+id/nav_save"
+            android:title="Save"
+            android:icon="@drawable/ic_save" />
+
+        <item
+            android:id="@+id/nav_save_all"
+            android:title="Save All"
+            android:icon="@drawable/ic_save" />
+
+    </group>
+
+    <group android:id="@+id/group_settings">
+
+        <item
+            android:id="@+id/nav_settings"
+            android:title="Settings"
+            android:icon="@drawable/ic_settings" />
+
+        <item
+            android:id="@+id/nav_about"
+            android:title="About"
+            android:icon="@drawable/ic_info" />
+
+    </group>
+
+</menu>

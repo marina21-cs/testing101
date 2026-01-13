@@ -1,0 +1,52 @@
+# Ignore Gradle project-specific cache directory
+.gradle/
+
+# Ignore Gradle build output directory
+build/
+app/build/
+
+# Ignore IntelliJ IDEA / Android Studio project files
+.idea/
+*.iml
+*.ipr
+*.iws
+.idea_modules/
+atlassian-ide-plugin.xml
+
+# Ignore local properties
+local.properties
+keystore.properties
+
+# Ignore signing keys
+*.jks
+*.keystore
+
+# Ignore OS-specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Ignore log files
+*.log
+
+# Ignore native crash reports
+hs_err_pid*
+
+# Ignore generated files
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Ignore APKs
+*.apk
+
+# Ignore NDK
+ndk-bundle/
+ndk/
+
+# Ignore Kotlin compilation
+.kotlin/

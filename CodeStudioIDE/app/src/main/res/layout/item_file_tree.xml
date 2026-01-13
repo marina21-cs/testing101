@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingVertical="6dp"
+    android:paddingEnd="12dp"
+    android:background="?attr/selectableItemBackground">
+
+    <!-- Expand/Collapse Icon for folders -->
+    <ImageView
+        android:id="@+id/expandIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="4dp"
+        android:src="@drawable/ic_expand_more"
+        android:tint="@color/icon_secondary"
+        android:visibility="gone"
+        tools:visibility="visible"
+        xmlns:tools="http://schemas.android.com/tools" />
+
+    <!-- File/Folder Icon -->
+    <ImageView
+        android:id="@+id/fileIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="4dp"
+        android:src="@drawable/ic_file_text"
+        android:tint="@color/icon_file" />
+
+    <!-- File/Folder Name -->
+    <TextView
+        android:id="@+id/fileName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/text_primary"
+        android:textSize="13sp"
+        android:maxLines="1"
+        android:ellipsize="middle"
+        tools:text="MainActivity.kt"
+        xmlns:tools="http://schemas.android.com/tools" />
+
+</LinearLayout>

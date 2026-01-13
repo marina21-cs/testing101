@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_save"
+        android:title="Save"
+        android:icon="@drawable/ic_save"
+        app:showAsAction="ifRoom"
+        android:contentDescription="Save file" />
+
+    <item
+        android:id="@+id/action_undo"
+        android:title="Undo"
+        android:icon="@drawable/ic_undo"
+        app:showAsAction="ifRoom"
+        android:contentDescription="Undo" />
+
+    <item
+        android:id="@+id/action_redo"
+        android:title="Redo"
+        android:icon="@drawable/ic_redo"
+        app:showAsAction="ifRoom"
+        android:contentDescription="Redo" />
+
+    <item
+        android:id="@+id/action_find"
+        android:title="Find"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="ifRoom"
+        android:contentDescription="Find in file" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="Settings"
+        android:icon="@drawable/ic_settings"
+        app:showAsAction="never"
+        android:contentDescription="Settings" />
+
+</menu>

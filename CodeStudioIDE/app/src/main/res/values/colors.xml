@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Colors (VS Code Dark Theme) -->
+    <color name="primary">#1e1e1e</color>
+    <color name="primary_dark">#181818</color>
+    <color name="primary_light">#252526</color>
+    <color name="accent">#007acc</color>
+    <color name="accent_light">#0098ff</color>
+
+    <!-- Background Colors -->
+    <color name="background">#1e1e1e</color>
+    <color name="editor_background">#1e1e1e</color>
+    <color name="sidebar_background">#252526</color>
+    <color name="toolbar_background">#323233</color>
+    <color name="tab_background">#2d2d2d</color>
+    <color name="panel_header_background">#383838</color>
+    <color name="terminal_background">#1e1e1e</color>
+    <color name="terminal_input_background">#252526</color>
+    <color name="drawer_background">#252526</color>
+    <color name="dialog_background">#2d2d2d</color>
+    <color name="bottom_nav_background">#252526</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#d4d4d4</color>
+    <color name="text_secondary">#858585</color>
+    <color name="text_disabled">#5a5a5a</color>
+    <color name="terminal_text">#cccccc</color>
+    <color name="terminal_prompt">#4ec9b0</color>
+
+    <!-- Icon Colors -->
+    <color name="icon_primary">#d4d4d4</color>
+    <color name="icon_secondary">#858585</color>
+    <color name="icon_file">#c5c5c5</color>
+
+    <!-- Syntax Highlighting Colors -->
+    <color name="syntax_keyword">#569cd6</color>
+    <color name="syntax_string">#ce9178</color>
+    <color name="syntax_number">#b5cea8</color>
+    <color name="syntax_comment">#6a9955</color>
+    <color name="syntax_function">#dcdcaa</color>
+    <color name="syntax_variable">#9cdcfe</color>
+    <color name="syntax_type">#4ec9b0</color>
+    <color name="syntax_operator">#d4d4d4</color>
+    <color name="syntax_tag">#569cd6</color>
+    <color name="syntax_attribute">#9cdcfe</color>
+
+    <!-- UI Colors -->
+    <color name="divider">#3c3c3c</color>
+    <color name="selection">#264f78</color>
+    <color name="find_highlight">#613214</color>
+    <color name="error">#f14c4c</color>
+    <color name="warning">#cca700</color>
+    <color name="info">#3794ff</color>
+    <color name="success">#4ec9b0</color>
+
+    <!-- Line Numbers -->
+    <color name="line_number">#858585</color>
+    <color name="line_number_active">#c6c6c6</color>
+    <color name="current_line">#282828</color>
+
+    <!-- File Icon Colors -->
+    <color name="file_html">#e44d26</color>
+    <color name="file_css">#264de4</color>
+    <color name="file_js">#f7df1e</color>
+    <color name="file_ts">#3178c6</color>
+    <color name="file_python">#3776ab</color>
+    <color name="file_rust">#dea584</color>
+    <color name="file_lua">#000080</color>
+    <color name="file_r">#276dc3</color>
+    <color name="file_java">#b07219</color>
+    <color name="file_kotlin">#7f52ff</color>
+    <color name="file_json">#cbcb41</color>
+    <color name="file_xml">#e44d26</color>
+    <color name="file_markdown">#083fa1</color>
+    <color name="file_shell">#89e051</color>
+
+    <!-- Button Colors -->
+    <color name="button_primary">#0e639c</color>
+    <color name="button_primary_hover">#1177bb</color>
+    <color name="button_secondary">#3a3d41</color>
+    
+    <!-- Input Colors -->
+    <color name="input_background">#3c3c3c</color>
+    <color name="input_border">#5a5a5a</color>
+    <color name="input_focus_border">#007acc</color>
+    
+    <!-- List Colors -->
+    <color name="list_item_hover">#2a2d2e</color>
+    <color name="list_item_selected">#094771</color>
+    <color name="list_item_active">#04395e</color>
+    
+    <!-- Tab Colors -->
+    <color name="tab_selected_background">#1e1e1e</color>
+    <color name="tab_hover_background">#2d2d2d</color>
+    <color name="tab_border">#252526</color>
+    
+    <!-- Ripple Effect -->
+    <color name="ripple_color">#40ffffff</color>
+</resources>
