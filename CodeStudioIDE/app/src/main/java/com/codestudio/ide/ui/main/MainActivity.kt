@@ -143,16 +143,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun setupEditor() {
-        binding.codeEditor.apply {
-            setTextSize(14f)
-            isWordwrap = false
-            isLineNumberEnabled = true
-            setTabWidth(4)
-            
-            // Set up text change listener
-            subscribeEvent(io.github.rosemoe.sora.event.ContentChangeEvent::class.java) { _, _ ->
-                viewModel.onEditorContentChanged(text.toString())
+        try {
+            binding.codeEditor.apply {
+                setTextSize(14f)
+                isWordwrap = false
+                isLineNumberEnabled = true
+                setTabWidth(4)
             }
+        } catch (e: Exception) {
+            android.util.Log.e("MainActivity", "Error setting up editor", e)
         }
     }
 
@@ -170,20 +169,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun setupTerminal() {
-        val session = terminalManager.createSession(
-            CodeStudioApp.instance.fileManager.getProjectsDirectory().absolutePath
-        )
+        try {
+            val session = terminalManager.createSession(
+                CodeStudioApp.instance.fileManager.getProjectsDirectory().absolutePath
+            )
 
-        binding.terminalInput.setOnEditorActionListener { _, _, _ ->
-            val command = binding.terminalInput.text.toString()
-            if (command.isNotBlank()) {
-                executeTerminalCommand(command)
-                binding.terminalInput.text?.clear()
+            binding.terminalInput.setOnEditorActionListener { _, _, _ ->
+                val command = binding.terminalInput.text.toString()
+                if (command.isNotBlank()) {
+                    executeTerminalCommand(command)
+                    binding.terminalInput.text?.clear()
+                }
+                true
             }
-            true
-        }
 
-        binding.terminalOutput.text = "CodeStudio Terminal\n$ "
+            binding.terminalOutput.text = "CodeStudio Terminal\n$ "
+        } catch (e: Exception) {
+            android.util.Log.e("MainActivity", "Error setting up terminal", e)
+            binding.terminalOutput.text = "Terminal initialization error\n$ "
+        }
     }
 
     private fun executeTerminalCommand(command: String) {

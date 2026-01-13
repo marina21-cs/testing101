@@ -2,6 +2,7 @@ package com.codestudio.ide.ui.main
 
 import android.app.Application
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.codestudio.ide.CodeStudioApp
@@ -16,8 +17,12 @@ import java.io.File
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val fileManager = CodeStudioApp.instance.fileManager
-    private val preferencesManager = CodeStudioApp.instance.preferencesManager
+    private val fileManager by lazy { 
+        try { CodeStudioApp.instance.fileManager } catch (e: Exception) { null }
+    }
+    private val preferencesManager by lazy { 
+        try { CodeStudioApp.instance.preferencesManager } catch (e: Exception) { null }
+    }
 
     private val _fileTree = MutableStateFlow<List<FileItem>>(emptyList())
     val fileTree: StateFlow<List<FileItem>> = _fileTree
@@ -34,11 +39,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val expandedFolders = mutableSetOf<String>()
 
     fun loadFileTree(rootPath: String) {
+        val fm = fileManager ?: return
         viewModelScope.launch(Dispatchers.IO) {
-            val showHidden = preferencesManager.showHiddenFiles
-            val files = fileManager.getFileTree(rootPath, showHidden)
-            val flatList = flattenFileTree(files)
-            _fileTree.value = flatList
+            try {
+                val showHidden = preferencesManager?.showHiddenFiles ?: false
+                val files = fm.getFileTree(rootPath, showHidden)
+                val flatList = flattenFileTree(files)
+                _fileTree.value = flatList
+            } catch (e: Exception) {
+                Log.e("MainViewModel", "Error loading file tree", e)
+            }
         }
     }
 
@@ -71,6 +81,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun openFile(fileItem: FileItem) {
         if (fileItem.isDirectory) return
+        val fm = fileManager ?: return
 
         viewModelScope.launch(Dispatchers.IO) {
             // Check if file is already open
@@ -81,7 +92,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
 
             // Read file content
-            val result = fileManager.readFile(fileItem.path)
+            val result = fm.readFile(fileItem.path)
             result.onSuccess { content ->
                 val openFile = OpenFile(
                     fileItem = fileItem,
@@ -100,8 +111,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun openExternalFile(uri: Uri) {
+        val fm = fileManager ?: return
         viewModelScope.launch(Dispatchers.IO) {
-            val result = fileManager.readFileFromUri(uri)
+            val result = fm.readFileFromUri(uri)
             result.onSuccess { content ->
                 val fileName = uri.lastPathSegment ?: "Untitled"
                 val fileItem = FileItem(
@@ -174,13 +186,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun saveCurrentFile() {
+        val fm = fileManager ?: return
         viewModelScope.launch(Dispatchers.IO) {
             val current = _currentFile.value ?: run {
                 _statusMessage.value = "No file to save"
                 return@launch
             }
 
-            val result = fileManager.writeFile(current.fileItem.path, current.content)
+            val result = fm.writeFile(current.fileItem.path, current.content)
             result.onSuccess {
                 val savedFile = current.copy(
                     originalContent = current.content,
@@ -202,12 +215,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun saveAllFiles() {
+        val fm = fileManager ?: return
         viewModelScope.launch(Dispatchers.IO) {
             var savedCount = 0
             var errorCount = 0
 
             _openFiles.value.filter { it.hasUnsavedChanges }.forEach { file ->
-                val result = fileManager.writeFile(file.fileItem.path, file.content)
+                val result = fm.writeFile(file.fileItem.path, file.content)
                 if (result.isSuccess) {
                     savedCount++
                 } else {
@@ -233,9 +247,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun createFile(parentPath: String, name: String) {
+        val fm = fileManager ?: return
         viewModelScope.launch(Dispatchers.IO) {
             val filePath = "$parentPath/$name"
-            val result = fileManager.createFile(filePath)
+            val result = fm.createFile(filePath)
             
             result.onSuccess { file ->
                 // Reload file tree
@@ -252,9 +267,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun createDirectory(parentPath: String, name: String) {
+        val fm = fileManager ?: return
         viewModelScope.launch(Dispatchers.IO) {
             val dirPath = "$parentPath/$name"
-            val result = fileManager.createDirectory(dirPath)
+            val result = fm.createDirectory(dirPath)
             
             result.onSuccess {
                 loadFileTree(File(parentPath).parent ?: parentPath)
@@ -266,11 +282,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun renameFile(fileItem: FileItem, newName: String) {
+        val fm = fileManager ?: return
         viewModelScope.launch(Dispatchers.IO) {
             val parentPath = File(fileItem.path).parent ?: return@launch
             val newPath = "$parentPath/$newName"
             
-            val result = fileManager.renameFile(fileItem.path, newPath)
+            val result = fm.renameFile(fileItem.path, newPath)
             
             result.onSuccess {
                 loadFileTree(parentPath)
@@ -282,6 +299,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun deleteFile(fileItem: FileItem) {
+        val fm = fileManager ?: return
         viewModelScope.launch(Dispatchers.IO) {
             val parentPath = File(fileItem.path).parent ?: return@launch
             
@@ -297,7 +315,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 }
             }
             
-            val result = fileManager.deleteFile(fileItem.path)
+            val result = fm.deleteFile(fileItem.path)
             
             result.onSuccess {
                 loadFileTree(parentPath)
@@ -309,6 +327,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun duplicateFile(fileItem: FileItem) {
+        val fm = fileManager ?: return
         viewModelScope.launch(Dispatchers.IO) {
             val parentPath = File(fileItem.path).parent ?: return@launch
             val baseName = fileItem.name.substringBeforeLast('.')
@@ -321,7 +340,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 counter++
             } while (File(newPath).exists())
             
-            val result = fileManager.copyFile(fileItem.path, newPath)
+            val result = fm.copyFile(fileItem.path, newPath)
             
             result.onSuccess {
                 loadFileTree(parentPath)
